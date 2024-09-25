@@ -42,7 +42,7 @@ namespace TextRPGGame
         static public List<string> ItemsEffectList = new List<string>();
         static public List<string> InventoryItemsList = new List<string>();
 
-        static public int[] itemPrice = { 100, 200, 300, 400, 500 };
+        static public int[] itemPrice = { 100, 500, 200, 300, 200, 400 };
 
 
         static void Main(string[] args)
@@ -395,7 +395,7 @@ namespace TextRPGGame
                     Console.WriteLine(" ");
                     Console.WriteLine("▶아이템구매하기");
                     Console.WriteLine(" ");
-                    ItemSelect();                    
+                    ItemSelect();
                     break;
                 case "0":
                     Console.Clear();
@@ -461,28 +461,10 @@ namespace TextRPGGame
                 item.Name = ItemsNameList[i];
                 item.Effect = ItemsEffectList[i];
                 item.Description = ItemsExplainList[i];
+                itemPriceGold = itemPrice[i];
 
-
-                if (i == 0 || i == 2 || i == 4) // 항목별 다른 가격 //출력은 정상적인데, 골드가 -조건을 못찾겠습니다.
-                {
-                    itemPriceGold = itemPrice[0];
-                    Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description} ■■ {itemPriceGold}G ");                   
-                }
-                else if (i == 1)
-                {
-                    itemPriceGold = itemPrice[4];
-                    Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description}  ■■ {itemPriceGold}G ");                  
-                }
-                else if (i == 3)
-                {
-                    itemPriceGold = itemPrice[2];
-                    Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description}  ■■ {itemPriceGold}G ");                  
-                }
-                else if (i == 5)
-                {
-                    itemPriceGold = itemPrice[3];
-                    Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description}  ■■ {itemPriceGold}G ");                    
-                }
+                Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description} ■■ {itemPriceGold}G ");
+                
             }
 
         }
@@ -502,7 +484,9 @@ namespace TextRPGGame
                     Console.WriteLine($"{ItemsNameList[0]}을 구매하였습니다.");
                     InventoryItemsList.Add($"{ItemsNameList[0]}{ItemsEffectList[0]}{ItemsExplainList[0]}");
                     itemAddPower += 1;//착용시 추가해줘야함.
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     //플레이어 공격력추가, 골드감소, 
                     break;
                 case "2":
@@ -510,35 +494,45 @@ namespace TextRPGGame
                     isPurchase = true;
                     InventoryItemsList.Add($"{ItemsNameList[1]}{ItemsEffectList[1]}{ItemsExplainList[1]}");
                     itemAddPower += 7;
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     break;
                 case "3":
                     Console.WriteLine($"{ItemsNameList[2]}을 구매하였습니다.");
                     isPurchase = true;
                     InventoryItemsList.Add($"{ItemsNameList[2]}{ItemsEffectList[2]}{ItemsExplainList[2]}");
                     itemAddPower += 2;
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     break;
                 case "4":
                     Console.WriteLine($"{ItemsNameList[3]}을 구매하였습니다.");
                     isPurchase = true;
                     InventoryItemsList.Add($"{ItemsNameList[3]}{ItemsEffectList[3]}{ItemsExplainList[3]}");
                     itemAddPower += 4;
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     break;
                 case "5":
                     Console.WriteLine($"{ItemsNameList[4]}을 구매하였습니다.");
                     isPurchase = true;
                     InventoryItemsList.Add($"{ItemsNameList[4]}{ItemsEffectList[4]}{ItemsExplainList[4]}");
                     itemAddPower += 2;
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     break;
                 case "6":
                     Console.WriteLine($"{ItemsNameList[5]}을 구매하였습니다.");
                     isPurchase = true;
                     InventoryItemsList.Add($"{ItemsNameList[5]}{ItemsEffectList[5]}{ItemsExplainList[5]}");
                     itemAddPower += 5;
-                    SpendGold();
+                    player.Gold -= itemPriceGold;
+                    Console.ReadKey();
+                    Store();
                     break;
                 default:
                     Console.WriteLine("아무것도 구매하지 않았습니다");
@@ -546,7 +540,7 @@ namespace TextRPGGame
                     Console.ReadKey();
                     GameStart();
                     return;
-            }            
+            }
         }
         /// <summary>
         /// 골드를 얻는 조건_미완성
@@ -559,21 +553,7 @@ namespace TextRPGGame
                 player.Gold += gold;
             }
             Console.WriteLine($"{player.Gold}");
-        }
-        /// <summary>
-        /// 골드 사용 조건
-        /// </summary>
-        static public void SpendGold()
-        {
-            //몇번째의 아이템을 구매했는지?조건 = 아이템셀렉트에서 itemPriceGold에 넣어줌
-            gold -= itemPriceGold;
-            player.Gold -= gold;
-            Console.WriteLine($"플레이어는 {itemPriceGold}만큼 소비하였습니다.");
-            Console.WriteLine("  ");
-            isPurchase = true;
-            Console.ReadKey();
-            Store();
-        }
+        }        
 
         /*        ### 상점
 
