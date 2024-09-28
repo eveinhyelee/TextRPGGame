@@ -13,14 +13,6 @@ namespace TextRPGGame
 {
     internal class Program
     {
-        /// <summary>
-        /// 캐릭터 인터페이스 정의
-        /// </summary>
-        public interface ICharacter
-        {
-
-        }
-
         static Player player = new Player();
         static Item item = new Item();
 
@@ -47,7 +39,7 @@ namespace TextRPGGame
 
         static void Main(string[] args)
         {
-            playerNameSetting();
+            playerNameSettingUI();
         }
         /// <summary>
         /// 플레이어 클래스 정의
@@ -76,7 +68,7 @@ namespace TextRPGGame
         /// <summary>
         /// 플레이어 이름 설정
         /// </summary>
-        static public void playerNameSetting()
+        static public void playerNameSettingUI()
         {
             Console.WriteLine(" ");
             Console.WriteLine("■■■■■■■ WELCOME TO SPARTA ■■■■■■■");
@@ -87,12 +79,12 @@ namespace TextRPGGame
             Console.WriteLine(" ");
             Console.WriteLine($"플레이어의 이름은 \"[{player.Name}]\"(으)로 설정되었습니다.");
 
-            ChooseJob();
+            ChooseJobUI();
         }
         /// <summary>
         /// 플레이어 직업선택(직업별:체력|공격력|방어력세팅)
         /// </summary>
-        static public void ChooseJob()
+        static public void ChooseJobUI()
         {
             string worrior = "전사";
             string mage = "마법사";
@@ -118,7 +110,7 @@ namespace TextRPGGame
                     addHealth += 20;
                     addAttackPower += 10;
                     addDefensPower += 20;
-                    GameStart();
+                    GameStartUI();
                     break;
                 case "2":
                     Console.WriteLine("[마법사] 를 선택하셨습니다.");
@@ -126,7 +118,7 @@ namespace TextRPGGame
                     addHealth += 10;
                     addAttackPower += 20;
                     addDefensPower += 5;
-                    GameStart();
+                    GameStartUI();
                     break;
                 case "3":
                     Console.WriteLine("[궁수] 를 선택하셨습니다.");
@@ -134,7 +126,7 @@ namespace TextRPGGame
                     addHealth += 10;
                     addAttackPower += 20;
                     addDefensPower += 20;
-                    GameStart();
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("올바른 값을 입력해주세요.");
@@ -148,7 +140,7 @@ namespace TextRPGGame
         /// <summary>
         /// 게임시작화면
         /// </summary>
-        static void GameStart()
+        static void GameStartUI()
         {
             Console.Clear();
             Console.WriteLine(" ");
@@ -166,30 +158,22 @@ namespace TextRPGGame
 
             switch (chooseNum)
             {
-                case "1":
-                    Console.WriteLine("상태보기");
-                    Console.WriteLine("캐릭터의 정보가 표시됩니다.");
-                    CharState();
+                case "1":                    
+                    CharStateUI();
                     break;
-                case "2":
-                    Console.WriteLine("인벤토리");
-                    Console.WriteLine("보유중인 아이템을 관리할 수 있습니다.");
+                case "2":                    
                     Inven();
                     break;
                 case "3":
-                    Console.WriteLine("상점");
-                    Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
                     Store();
                     break;
-                case "4":
-                    Console.WriteLine("던전입장");
-                    Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
-                    Dungeon();
+                case "4":                                    
+                    DungeonUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
                     Console.ReadKey();
-                    GameStart();
+                    GameStartUI();
                     return;
             }
         }
@@ -197,11 +181,13 @@ namespace TextRPGGame
         /// <summary>
         /// 현재 캐릭터상황
         /// </summary>
-        static public void CharState()
+        static public void CharStateUI()
         {
             Console.Clear();
             Console.WriteLine(" ");
             Console.WriteLine("■■■■■■■ PLAYER STATUS ■■■■■■■");
+            Console.WriteLine("상태보기");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine(" ");
             Console.WriteLine($"Lv. {player.Level}");
             Console.WriteLine($"Name. {player.Name}");
@@ -235,7 +221,7 @@ namespace TextRPGGame
             {
                 case "0":
                     Console.Clear();
-                    GameStart();
+                    GameStartUI();
                     break;
 
                 default:
@@ -250,7 +236,8 @@ namespace TextRPGGame
         static public void Inven()
         {
             Console.WriteLine(" ");
-            Console.WriteLine("■■■■■■■ INVENTORY ■■■■■■■");
+            Console.WriteLine("■■■■■■■ INVENTORY ■■■■■■■");           
+            Console.WriteLine("보유중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine(" ");
             Console.WriteLine("□□□□□□□ HAVE ITEM □□□□□□□");
             Console.WriteLine(" ");
@@ -279,7 +266,7 @@ namespace TextRPGGame
                     break;
                 case "0":
                     Console.Clear();
-                    GameStart();
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -316,6 +303,7 @@ namespace TextRPGGame
                 }
             }
         }
+        
         /// <summary>
         /// 인벤토리- 아이템 장착 관리 화면
         /// </summary>
@@ -323,6 +311,7 @@ namespace TextRPGGame
         {
             Console.WriteLine(" ");
             Console.WriteLine("■■■■■■■ INVENTORY ■■■■■■■");
+            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
             Console.WriteLine(" ");
             Console.WriteLine("□□□□□□□ HAVE ITEM □□□□□□□");
             Console.WriteLine(" ");
@@ -354,7 +343,7 @@ namespace TextRPGGame
                     break;
 
                 case "0":
-                    GameStart();
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -364,8 +353,6 @@ namespace TextRPGGame
             }
 
         }
-
-
         /// <summary>
         /// 상점
         /// </summary>
@@ -397,9 +384,8 @@ namespace TextRPGGame
                     Console.WriteLine(" ");
                     ItemSelect();
                     break;
-                case "0":
-                    Console.Clear();
-                    GameStart();
+                case "0":                    
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -434,29 +420,31 @@ namespace TextRPGGame
         /// </summary>
         static public void ItemExplain()
         {
-            ItemsNameList.Add("[  낡고 허름한 검   ]");
-            ItemsNameList.Add("[ 매우강력한 강철검 ]");
-            ItemsNameList.Add("[     나무지팡이    ]");
-            ItemsNameList.Add("[ 화려한 주술 지팡이]");
-            ItemsNameList.Add("[ 초심자 초보자의활 ]");
-            ItemsNameList.Add("[ 매우 단단한 강철활]");
+            if (ItemsExplainList.Count < 6)
+            {
+                ItemsNameList.Add("[  낡고 허름한 검   ]");
+                ItemsNameList.Add("[ 매우강력한 강철검 ]");
+                ItemsNameList.Add("[     나무지팡이    ]");
+                ItemsNameList.Add("[ 화려한 주술 지팡이]");
+                ItemsNameList.Add("[ 초심자 초보자의활 ]");
+                ItemsNameList.Add("[ 매우 단단한 강철활]");
 
-            ItemsEffectList.Add("| 공격력 [+ 1]");
-            ItemsEffectList.Add("| 공격력 [+ 7]");
-            ItemsEffectList.Add("| 공격력 [+ 2]");
-            ItemsEffectList.Add("| 공격력 [+ 5]");
-            ItemsEffectList.Add("| 공격력 [+ 2]");
-            ItemsEffectList.Add("| 공격력 [+ 5]");
+                ItemsEffectList.Add("| 공격력 [+ 1]");
+                ItemsEffectList.Add("| 공격력 [+ 7]");
+                ItemsEffectList.Add("| 공격력 [+ 2]");
+                ItemsEffectList.Add("| 공격력 [+ 5]");
+                ItemsEffectList.Add("| 공격력 [+ 2]");
+                ItemsEffectList.Add("| 공격력 [+ 5]");
 
-            ItemsExplainList.Add("| 그냥 낡은 검입니다.");
-            ItemsExplainList.Add("| 강력하고 날카로운 검입니다.");
-            ItemsExplainList.Add("| 나무로 만든 지팡이입니다.");
-            ItemsExplainList.Add("| 화려한 주술을 사용할수있는 지팡이입니다.");
-            ItemsExplainList.Add("| 초보자의 활입니다.");
-            ItemsExplainList.Add("| 강철과 같은 활입니다.");
+                ItemsExplainList.Add("| 그냥 낡은 검입니다.");
+                ItemsExplainList.Add("| 강력하고 날카로운 검입니다.");
+                ItemsExplainList.Add("| 나무로 만든 지팡이입니다.");
+                ItemsExplainList.Add("| 화려한 주술을 사용할수있는 지팡이입니다.");
+                ItemsExplainList.Add("| 초보자의 활입니다.");
+                ItemsExplainList.Add("| 강철과 같은 활입니다.");
+            }
 
-
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < ItemsExplainList.Count; i++)
             {
                 item.Name = ItemsNameList[i];
                 item.Effect = ItemsEffectList[i];
@@ -464,7 +452,7 @@ namespace TextRPGGame
                 itemPriceGold = itemPrice[i];
 
                 Console.WriteLine($" [{i + 1}] {item.Name} {item.Effect} {item.Description} ■■ {itemPriceGold}G ");
-                
+
             }
 
         }
@@ -538,7 +526,7 @@ namespace TextRPGGame
                     Console.WriteLine("아무것도 구매하지 않았습니다");
                     isPurchase = false;
                     Console.ReadKey();
-                    GameStart();
+                    GameStartUI();
                     return;
             }
         }
@@ -553,9 +541,9 @@ namespace TextRPGGame
                 player.Gold += gold;
             }
             Console.WriteLine($"{player.Gold}");
-        }        
+        }
 
-        /*        ### 상점
+        /*### 상점
 
         - 보유중인 골드와 아이템의 정보, 가격이 표시됩니다.
         - 아이템 정보 오른쪽에는 가격이 표시가 됩니다.
@@ -595,7 +583,7 @@ namespace TextRPGGame
         /// <summary>
         /// 던전입장
         /// </summary>
-        static public void Dungeon()
+        static public void DungeonUI()
         {
             Console.WriteLine(" ");
             Console.WriteLine("■■■■■■■■ DUNGEON ■■■■■■■■");
@@ -628,7 +616,7 @@ namespace TextRPGGame
                     break;
                 case "0":
                     Console.Clear();
-                    GameStart();
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -655,9 +643,8 @@ namespace TextRPGGame
                     Console.WriteLine("방어력 5이상 권장");
                     EasyMode();
                     break;
-                case "0":
-                    Console.Clear();
-                    GameStart();
+                case "0":                    
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -681,9 +668,8 @@ namespace TextRPGGame
                     Console.WriteLine("방어력 11이상 권장");
                     EasyMode();
                     break;
-                case "0":
-                    Console.Clear();
-                    GameStart();
+                case "0":                    
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -708,9 +694,8 @@ namespace TextRPGGame
                     Console.WriteLine("방어력 17이상 권장");
                     EasyMode();
                     break;
-                case "0":
-                    Console.Clear();
-                    GameStart();
+                case "0":                    
+                    GameStartUI();
                     break;
                 default:
                     Console.WriteLine("잘못된 입력입니다");
@@ -721,73 +706,3 @@ namespace TextRPGGame
     }
 
 }
-
-
-/* ### **인벤토리**
-
-                           - 보유 중인 아이템을 전부 보여줍니다.
-               이때 장착중인 아이템 앞에는[E] 표시를 붙여 줍니다.
-               - 처음 시작시에는 아이템이 없습니다.
-
-               ```csharp
-               ** 인벤토리**
-               보유 중인 아이템을 관리할 수 있습니다.
-
-               [아이템 목록]
-
-               1.장착 관리
-               0.나가기
-
-               원하시는 행동을 입력해주세요.
-               >>
-               ```
-
-               -아이템이 있을 때
-
-                   **인벤토리 * *
-                   보유 중인 아이템을 관리할 수 있습니다.
-
-
-                   [아이템 목록]
-                   - [E]무쇠갑옷 | 방어력 + 5 | 무쇠로 만들어져 튼튼한 갑옷입니다.
-                   - [E]스파르타의 창  | 공격력 + 7 | 스파르타의 전사들이 사용했다는 전설의 창입니다.
-                   -낡은 검 | 공격력 + 2 | 쉽게 볼 수 있는 낡은 검 입니다.
-
-
-                   1.장착 관리
-                   2.나가기
-
-
-                   원하시는 행동을 입력해주세요.
-                   >>
-
-
-### 장착 관리
-
-               -장착관리가 시작되면 아이템 목록 앞에 숫자가 표시됩니다.
-               -일치하는 아이템을 선택했다면(예제에서 1~3선택시)
-                   -장착중이지 않다면 → 장착
-                   [E] 표시 추가
-                   -이미 장착중이라면 → 장착 해제
-                   [E] 표시 없애기
-               -일치하는 아이템을 선택했지 않았다면(예제에서 1~3이외 선택시)
-                   - **잘못된 입력입니다** 출력
-               -아이템의 중복 장착을 허용합니다.
-                   - 창과 검을 동시에 장착가능
-                   - 갑옷도 동시에 착용가능
-                   -장착 갯수 제한 X
-
-               ** 인벤토리 -장착 관리**
-               보유 중인 아이템을 관리할 수 있습니다.
-
-               [아이템 목록]
-               - 1[E]무쇠갑옷 | 방어력 + 5 | 무쇠로 만들어져 튼튼한 갑옷입니다.
-               - 2[E]스파르타의 창  | 공격력 + 7 | 스파르타의 전사들이 사용했다는 전설의 창입니다.
-               -3 낡은 검         | 공격력 + 2 | 쉽게 볼 수 있는 낡은 검 입니다.
-
-               0.나가기
-
-               원하시는 행동을 입력해주세요.
-               >>
-               ```
-*/
